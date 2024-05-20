@@ -1,7 +1,6 @@
 import axios from "../../axios";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ICartItem } from "./cartSlice";
-import { TOrdersAdmin } from "../../pages/ProductsPanel";
 
 type TFetchProductsArgs = {
   sortProp: string;
@@ -34,7 +33,7 @@ export const fetchProducts = createAsyncThunk(
 export const fetchUserOrders = createAsyncThunk(
   "list/fetchUserOrdersStatus",
   async () => {
-    const { data } = await axios.get<TOrdersAdmin>("/userposts");
+    const { data } = await axios.get("/userposts");
     return data;
   }
 );
@@ -43,7 +42,7 @@ export const fetchAdminOrders = createAsyncThunk(
   "list/fetchAdminOrdersStatus",
   async (params: TFetchAdminOrdersArgs) => {
     const { delivery, currentPage } = params;
-    const { data } = await axios.get<TOrdersAdmin>(
+    const { data } = await axios.get(
       `/posts/${delivery}?page=${currentPage}&limit=15`
     );
     return data;
