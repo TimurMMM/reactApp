@@ -1,0 +1,171 @@
+.infocount {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    width: 50%;
+  }
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  border-top: 1px solid #f6f6f6;
+  padding-top: 30px;
+  margin-top: 30px;
+
+  &_img {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    width: 25%;
+
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  &_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (max-width: 500px) {
+      // flex-direction: row;
+      flex-wrap: nowrap;
+    }
+
+    h3 {
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 27px;
+      letter-spacing: 0.01em;
+    }
+
+    p {
+      font-size: 18px;
+      color: #8d8d8d;
+    }
+  }
+
+  &_count {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 13%;
+
+    b {
+      font-size: 22px;
+    }
+  }
+
+  &_price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // width: 33%;
+
+    b {
+      font-weight: bold;
+      font-size: 22px;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+  }
+
+  &_remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    margin-left: 10px;
+    padding: 0;
+    border-width: 2px;
+    background-color: #fff;
+    border-color: #fe5f1e;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out;
+    border: 2px solid #fe5f1e;
+
+    svg {
+      transform: rotate(45deg);
+
+      path {
+        fill: darken($color: #fe5f1e, $amount: 15);
+      }
+    }
+  }
+}
+
+.priceremove {
+  display: flex;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    width: 25%;
+  }
+}
+
+.blockremove {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 500px) {
+    justify-content: flex-end;
+  }
+}
+
+.button_plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  border-width: 2px;
+  background-color: #fff;
+  border-color: #fe5f1e;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  border: 2px solid #fe5f1e;
+  &,
+  span {
+    color: #fe5f1e;
+  }
+
+  svg {
+    path {
+      fill: #fe5f1e;
+    }
+  }
+  &:hover {
+    background-color: darken(#fe5f1e, 8%);
+    &,
+    span {
+      color: #fff;
+    }
+
+    svg {
+      path {
+        fill: #fff;
+      }
+    }
+  }
+
+  &:active {
+    background-color: darken(#fe5f1e, 12%);
+    transform: translateY(1px);
+  }
+}

@@ -13,6 +13,10 @@
   border: 1px solid transparent;
   @include noselect();
 
+  &.dark {
+    background-color: $backgroundblack;
+  }
+
   &,
   span {
     color: #fff;
@@ -38,11 +42,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 45px;
+    height: 45px;
     min-width: 32px;
     padding: 0;
     border-width: 2px;
+    background-color: $orange;
+    border-radius: 50%;
   }
 
   &--black {
@@ -131,6 +137,23 @@
   }
 
   &--cart {
+    display: flex;
+    align-items: center;
+    line-height: 23px;
+    padding: 12px 25px;
+
+    svg {
+      margin-right: 8px;
+      margin-bottom: 1px;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+
+  &--adding {
     display: flex;
     align-items: center;
     line-height: 23px;

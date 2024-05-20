@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectIsAuth, fetchUserData } from "../../redux/slices/authSlice";
 import { Link, Navigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux/store";
+import { ThemeContext } from "../../context/ThemeContext";
 
 interface FormData {
   email: string;
@@ -22,7 +23,7 @@ const newLogin: React.FC = () => {
   } = useForm({
     defaultValues: {
       email: "",
-      password: "qwerty123",
+      password: "",
     },
     mode: "onChange",
   });
@@ -38,8 +39,10 @@ const newLogin: React.FC = () => {
   if (isAuth) {
     return <Navigate to="/" />;
   }
+
+  const { theme } = React.useContext(ThemeContext);
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${styles[theme]}`}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Login</h1>
         <div className={styles.inputbox}>
@@ -52,18 +55,18 @@ const newLogin: React.FC = () => {
           />
           <svg
             className={styles.icon}
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
-            viewBox="0 0 24 24"
             fill="none"
-            stroke="#000000"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            viewBox="0 0 24 24"
           >
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
+            <path
+              stroke="currentColor"
+              stroke-width="2"
+              d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+            />
           </svg>
         </div>
         <div className={styles.inputbox}>
@@ -76,24 +79,26 @@ const newLogin: React.FC = () => {
           />
           <svg
             className={styles.icon}
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
-            viewBox="0 0 24 24"
             fill="none"
-            stroke="#000000"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            viewBox="0 0 24 24"
           >
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"
+            />
           </svg>
         </div>
         <div className={styles.remember}>
           <label>
             <input type="checkbox" />
-            Remember me
+            <span>Remember me</span>
           </label>
           <a href="#">Forgot password?</a>
         </div>
@@ -101,11 +106,8 @@ const newLogin: React.FC = () => {
           Login
         </button>
         <div className={styles.registerlink}>
-          <Link to="/register">
-            <p>
-              Don't have an account? <a>Register</a>
-            </p>
-          </Link>
+          <p>Don't have an account?</p>
+          <Link to="/register">Register</Link>
         </div>
       </form>
     </div>

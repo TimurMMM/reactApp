@@ -6,6 +6,7 @@ export type TSortChoose = {
 };
 
 interface IFilterSlice {
+  openSearch: boolean;
   currentPage: number;
   activeCat: number;
   searchData: string;
@@ -14,6 +15,7 @@ interface IFilterSlice {
 }
 
 const initialState: IFilterSlice = {
+  openSearch: false,
   currentPage: 1,
   activeCat: 0,
   searchData: "",
@@ -28,6 +30,9 @@ const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
+    setOpenSearch(state, action: PayloadAction<boolean>) {
+      state.openSearch = action.payload;
+    },
     setActiveCat(state, action: PayloadAction<number>) {
       state.activeCat = action.payload;
     },
@@ -47,6 +52,7 @@ const filterSlice = createSlice({
 });
 
 export const {
+  setOpenSearch,
   setActiveCat,
   setSearchData,
   setActiveOrder,

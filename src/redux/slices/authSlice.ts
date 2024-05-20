@@ -24,13 +24,11 @@ interface IAuthSlice {
   status: Status;
 }
 
-type TFetchData = {};
-
 export const fetchUserRegister = createAsyncThunk(
   "auth/fetchUserRegisterStatus",
   async (params: TFetchUserDataArgs) => {
     const { data } = await axios.post("/auth/register", params);
-    console.log("DATA", data);
+    // console.log("DATA", data);
     return data;
   }
 );
@@ -47,7 +45,7 @@ export const fetchUserMyData = createAsyncThunk(
   "auth/fetchUserMyDataStatus",
   async () => {
     const { data } = await axios.get("/auth/me");
-    console.log(data);
+    // console.log(data);
     return data;
   }
 );

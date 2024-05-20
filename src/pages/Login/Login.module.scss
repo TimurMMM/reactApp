@@ -1,7 +1,9 @@
+@use "../../scss/variables.scss" as *;
+
 .root {
   width: 500px;
-  padding: 50px;
-  border: 1px solid #fff8f8;
+  padding: 20px;
+  // border: 1px solid #fff8f8;
   margin: 50px auto;
   // margin-bottom: 200px;
   box-sizing: border-box;
@@ -9,7 +11,14 @@
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  background: #f8f8f8;
+  background-color: #f8f8f8;
+  @media (max-width: 500px) {
+    width: 300px;
+  }
+
+  &.dark {
+    background-color: $blockdark;
+  }
 
   h1 {
     font-size: 36px;
@@ -51,7 +60,7 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 8px 20px;
   padding-left: 42px;
-  width: 350px;
+  width: 100%;
   border-radius: 20px;
   font-size: 16px;
 
@@ -100,8 +109,11 @@
 .registerlink {
   text-align: center;
   margin-top: 20px;
-  p a {
+  display: flex;
+  justify-content: center;
+  a {
     font-weight: 600;
+    margin-left: 5px;
     &:hover {
       text-decoration: underline;
     }

@@ -9,15 +9,11 @@ const PageEmpty: React.FC<PageEmptyProps> = ({ onClickRefresh }) => {
   return (
     <>
       <div className="cart cart--empty">
-        <h2>Проверьте ваше интернет соединение 😕</h2>
-        <p>
-          Попробуйте обновить позже.
-          <br />
-          Прплвуацоалуцоы.
-        </p>
+        <h2>Nothing Here 😕</h2>
+        <p>Try Reload Again.</p>
         <img src={emptyCart} alt="Empty cart" />
         <a onClick={onClickRefresh} className="button button--black">
-          <span>Вернуться назад</span>
+          <span>Go Back</span>
         </a>
       </div>
     </>

@@ -1,0 +1,40 @@
+@use "../../scss/variables.scss" as *;
+
+.root {
+  display: flex;
+  margin-top: auto;
+  //   display: flex;
+  //   //   justify-content: space-between;
+  //   align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid $gray-line;
+  &.dark {
+    border-top: 1px solid #3c3c3c;
+  }
+}
+
+.header {
+  border-bottom: 1px solid $gray-line;
+  //   padding: 20px 20px;
+
+  &.dark {
+    border-bottom: 1px solid #3c3c3c;
+    h1 {
+      color: #fff;
+    }
+    p {
+      color: #c0c0c0;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  img {
+    margin: 3px;
+  }
+}

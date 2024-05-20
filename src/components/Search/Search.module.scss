@@ -1,6 +1,9 @@
+@use "../../scss/variables.scss" as *;
+
 .root {
   position: relative;
-  left: -10px;
+
+  // left: -10px;
 }
 
 .input {
@@ -10,6 +13,11 @@
   width: 250px;
   border-radius: 20px;
   font-size: 16px;
+  min-height: 40px;
+  &.dark {
+    background: #313131;
+    color: #dadada;
+  }
 
   &:focus {
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -23,6 +31,9 @@
   position: absolute;
   left: 14px;
   top: 10px;
+  &.dark {
+    color: #fff;
+  }
 }
 
 .clearIcon {

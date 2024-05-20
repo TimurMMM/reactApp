@@ -7,10 +7,11 @@ import {
   setCurrentPage,
   setSearchData,
 } from "../../redux/slices/filterSlice";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState(""); //локальный стейт
+  const [value, setValue] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
   const onClickClear = () => {
     setValue("");
@@ -30,60 +31,46 @@ const Search: React.FC = () => {
     updateInput(event.target.value);
   };
 
+  const { theme } = React.useContext(ThemeContext);
+
   return (
-    <div className={styles.root}>
-      <svg
-        className={styles.icon}
-        enableBackground="new 0 0 32 32"
-        id="EditableLine"
-        version="1.1"
-        viewBox="0 0 32 32"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="14"
-          cy="14"
-          fill="none"
-          id="XMLID_42_"
-          r="9"
-          stroke="#000000"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeMiterlimit="10"
-          strokeWidth="2"
-        />
-        <line
-          fill="none"
-          id="XMLID_44_"
-          stroke="#000000"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeMiterlimit="10"
-          strokeWidth="2"
-          x1="27"
-          x2="20.366"
-          y1="27"
-          y2="20.366"
-        />
-      </svg>
-      <input
-        ref={inputRef}
-        value={value}
-        onChange={onChangeInput}
-        className={styles.input}
-        placeholder="Burger's Search..."
-      />
-      {value && (
+    <>
+      <div className={styles.root}>
         <svg
-          onClick={onClickClear}
-          className={styles.clearIcon}
-          viewBox="0 0 20 20"
+          className={`${styles.icon} ${styles[theme]}`}
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
         >
-          <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+          />
         </svg>
-      )}
-    </div>
+        <input
+          ref={inputRef}
+          value={value}
+          onChange={onChangeInput}
+          className={`${styles.input} ${styles[theme]}`}
+          placeholder="Burger's Search..."
+        />
+        {value && (
+          <svg
+            onClick={onClickClear}
+            className={styles.clearIcon}
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+          </svg>
+        )}
+      </div>
+    </>
   );
 };
 

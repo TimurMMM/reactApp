@@ -1,9 +1,9 @@
 import axios from "../../axios";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ICartItem } from "./cartSlice";
-import { TPostsAdmin } from "../../pages/ProductsPanel";
+import { TOrdersAdmin } from "../../pages/ProductsPanel";
 
-type TFetchBurgersArgs = {
+type TFetchProductsArgs = {
   sortProp: string;
   orderProp: boolean;
   categoryProp: string;
@@ -11,14 +11,14 @@ type TFetchBurgersArgs = {
   currentPage: number;
 };
 
-type TFetchAdminPostsArgs = {
+type TFetchAdminOrdersArgs = {
   delivery?: string;
   currentPage: number;
 };
 
-export const fetchBurgers = createAsyncThunk(
+export const fetchProducts = createAsyncThunk(
   "list/fetchBurgersStatus",
-  async (params: TFetchBurgersArgs) => {
+  async (params: TFetchProductsArgs) => {
     const { sortProp, orderProp, categoryProp, searchProp, currentPage } =
       params;
     const { data } = await axios.get<IPayload>(
@@ -31,20 +31,20 @@ export const fetchBurgers = createAsyncThunk(
     return data;
   }
 );
-export const fetchUserPosts = createAsyncThunk(
-  "list/fetchUserPostsStatus",
+export const fetchUserOrders = createAsyncThunk(
+  "list/fetchUserOrdersStatus",
   async () => {
-    const { data } = await axios.get<TPostsAdmin>("/userposts");
+    const { data } = await axios.get<TOrdersAdmin>("/userposts");
     return data;
   }
 );
 
-export const fetchAdminPosts = createAsyncThunk(
-  "list/fetchAdminPostsStatus",
-  async (params: TFetchAdminPostsArgs) => {
+export const fetchAdminOrders = createAsyncThunk(
+  "list/fetchAdminOrdersStatus",
+  async (params: TFetchAdminOrdersArgs) => {
     const { delivery, currentPage } = params;
-    const { data } = await axios.get<TPostsAdmin>(
-      `/posts/${delivery}?page=${currentPage}&limit=10`
+    const { data } = await axios.get<TOrdersAdmin>(
+      `/posts/${delivery}?page=${currentPage}&limit=15`
     );
     return data;
   }
@@ -70,7 +70,7 @@ export interface IProdItem {
   imageUrl: string;
 }
 
-export interface IPostItem {
+export interface IOrderItem {
   _id: string;
   viewsCount: number;
   status: number;
@@ -93,15 +93,15 @@ interface IProducts {
   total: number;
 }
 
-export interface IPosts {
-  items: IPostItem[];
+export interface IOrders {
+  items: IOrderItem[];
   status: Status;
   total: number;
 }
 
 interface IListSlice {
   products: IProducts;
-  posts: IPosts;
+  orders: IOrders;
 }
 
 interface IPayload {
@@ -111,7 +111,7 @@ interface IPayload {
 
 const initialState: IListSlice = {
   products: { items: [], status: Status.LOADING, total: 0 },
-  posts: { items: [], status: Status.LOADING, total: 1 },
+  orders: { items: [], status: Status.LOADING, total: 1 },
 };
 
 export const listSlice = createSlice({
@@ -121,64 +121,64 @@ export const listSlice = createSlice({
     setItems(state, action: PayloadAction<IProdItem[]>) {
       state.products.items = action.payload;
     },
-    setPosts(state) {
-      state.posts.items = [];
-      state.posts.total = 1;
+    setOrders(state) {
+      state.orders.items = [];
+      state.orders.total = 1;
     },
-    setTotalPosts(state, action) {
-      state.posts.total = action.payload;
+    setTotalOrders(state, action) {
+      state.orders.total = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBurgers.pending, (state) => {
+      .addCase(fetchProducts.pending, (state) => {
         state.products.status = Status.LOADING;
         state.products.items = [];
         state.products.total = 0;
       })
       .addCase(
-        fetchBurgers.fulfilled,
+        fetchProducts.fulfilled,
         (state, action: PayloadAction<IPayload>) => {
           state.products.items = action.payload.products;
           state.products.total = action.payload.total;
           state.products.status = Status.SUCCESS;
         }
       )
-      .addCase(fetchBurgers.rejected, (state) => {
+      .addCase(fetchProducts.rejected, (state) => {
         state.products.status = Status.ERROR;
         state.products.items = [];
         state.products.total = 0;
       })
-      .addCase(fetchUserPosts.pending, (state) => {
-        state.posts.status = Status.LOADING;
-        state.posts.items = [];
-        state.posts.total = 0;
+      .addCase(fetchUserOrders.pending, (state) => {
+        state.orders.status = Status.LOADING;
+        state.orders.items = [];
+        state.orders.total = 0;
       })
-      .addCase(fetchUserPosts.fulfilled, (state, action) => {
-        state.posts.items = action.payload.items;
-        state.posts.status = Status.SUCCESS;
-        state.posts.total = action.payload.total;
+      .addCase(fetchUserOrders.fulfilled, (state, action) => {
+        state.orders.items = action.payload.items;
+        state.orders.status = Status.SUCCESS;
+        state.orders.total = action.payload.total;
       })
-      .addCase(fetchUserPosts.rejected, (state) => {
-        state.posts.status = Status.ERROR;
-        state.posts.items = [];
-        state.posts.total = 0;
+      .addCase(fetchUserOrders.rejected, (state) => {
+        state.orders.status = Status.ERROR;
+        state.orders.items = [];
+        state.orders.total = 0;
       })
-      .addCase(fetchAdminPosts.pending, (state) => {
-        state.posts.status = Status.LOADING;
+      .addCase(fetchAdminOrders.pending, (state) => {
+        state.orders.status = Status.LOADING;
       })
-      .addCase(fetchAdminPosts.fulfilled, (state, action) => {
-        state.posts.items.push(...action.payload.items);
-        state.posts.status = Status.SUCCESS;
-        state.posts.total = action.payload.total;
+      .addCase(fetchAdminOrders.fulfilled, (state, action) => {
+        state.orders.items.push(...action.payload.items);
+        state.orders.status = Status.SUCCESS;
+        state.orders.total = action.payload.total;
       })
-      .addCase(fetchAdminPosts.rejected, (state) => {
-        state.posts.status = Status.ERROR;
-        state.posts.items = [];
-        state.posts.total = 0;
+      .addCase(fetchAdminOrders.rejected, (state) => {
+        state.orders.status = Status.ERROR;
+        state.orders.items = [];
+        state.orders.total = 0;
       });
   },
 });
 
-export const { setItems, setPosts, setTotalPosts } = listSlice.actions;
+export const { setItems, setOrders, setTotalOrders } = listSlice.actions;
 export default listSlice.reducer;
